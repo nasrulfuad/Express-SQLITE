@@ -1,0 +1,29 @@
+{
+  "name": "Express-Sequelize-SQLITE",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "dev": "NODE_ENV=development nodemon app.js",
+    "start": "NODE_ENV=production node app.js"
+  },
+  "keywords": [],
+  "author": "Nasrul Fuad",
+  "license": "ISC",
+  "dependencies": {
+    "connect-flash": "^0.1.1",
+    "dotenv": "^8.2.0",
+    "ejs": "^2.7.1",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.17.0",
+    "form-data": "^3.0.0",
+    "node-fetch": "^2.6.0",
+    "sequelize": "^5.21.3",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "faker": "^4.1.0",
+    "nodemon": "^1.19.4"
+  }
+}

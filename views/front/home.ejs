@@ -1,0 +1,65 @@
+<table class="table table-hover table-sm">
+  <thead>
+    <tr>
+      <th scope="col" class="text-center">No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.rows.forEach((user, i) => { %>
+      <tr>
+        <th scope="row" class="text-center"><%= user.number %></th>
+        <td>
+          <a href="/users/<%= user.id %>/show"><%= user.name %></a>
+        </td>
+        <td><%= user.email %></td>
+        <td><%= user.phone_number %></td>
+        <td>
+          <div class="btn-group">
+            <button class="btn btn-secondary btn-sm px-4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-ellipsis-v"></i>
+            </button>
+            <div class="dropdown-menu">
+              <a class="dropdown-item" href="/users/<%= user.id %>/show">Show</a>
+              <a class="dropdown-item" href="/users/<%= user.id %>/edit">Edit</a>
+              <a class="dropdown-item" href="/users/<%= user.id %>/delete">Delete</a>
+            </div>
+          </div>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<div>
+  <ul class="pagination pagination-sm">
+    <% if(!users.previous) { %>
+      <li class="page-item disabled">
+        <a class="page-link" href="#">&laquo;</a>
+    <% } else { %>
+      <li class="page-item">
+        <a class="page-link" href="/?page=<%= users.previous.page %>">&laquo;</a>
+    <% } %>
+    </li>
+    <% if(users.previous) { %>
+      <li class="page-item">
+        <a class="page-link" href="/?page=<%= users.previous.page %>"><%= users.previous.page %></a>
+    <% } %>
+    <li class="page-item active">
+      <a class="page-link" href="#"><%= users.currentPage %></a>
+    </li>
+    <% if(users.next) { %>
+      <li class="page-item">
+        <a class="page-link" href="/?page=<%= users.next.page %>"><%= users.next.page %></a>
+    <% } %>
+    <% if(!users.next) { %>
+      <li class="page-item disabled">
+        <a class="page-link" href="#">&raquo;</a>
+    <% } else { %>
+      <li class="page-item">
+        <a class="page-link" href="/?page=<%= users.next.page %>">&raquo;</a>
+    <% } %>
+  </ul>
+</div>
