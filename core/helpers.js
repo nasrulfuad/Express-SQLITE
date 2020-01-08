@@ -1,4 +1,5 @@
 module.exports = {
+	/* For catching error on controller **/
 	errHandler: fn => (req, res, next) => {
 		try {
 			const result = fn(req, res, next);
@@ -7,6 +8,16 @@ module.exports = {
 			return next(err);
 		}
 	},
+
+	/* For response an api **/
+	responseApi: (s, c, m, data) => ({
+		status: s ? s : false,
+		code: c ? c : 200,
+		message: m ? m : 'Success',
+		data
+	}),
+
+	/* For data pagination (@res json) **/
 	getAllAndPagination: async (model, q, option) => {
 		const page = parseInt(q.page) || 1;
 		const limit = parseInt(q.limit) || 10;

@@ -1,4 +1,4 @@
-const { getAllAndPagination } = require('../../core/helpers');
+const { getAllAndPagination, responseApi } = require('../../core/helpers');
 const { User } = require('../../models');
 
 module.exports = {
@@ -9,6 +9,12 @@ module.exports = {
 
 	show: async (req, res) => {
 		const user = await User.findByPk(req.params.id);
-		return res.json({ message: 'Ok', status: 200, data: user });
+		return res.json(responseApi(true, null, null, user));
+	},
+
+	update: async (req, res) => {
+		const { name, email, phone: phone_number } = req.body;
+		await User.update({ name, email, phone_number }, { where: { id: req.params.id } });
+		return res.json(responseApi(true, null, 'Updated!'));
 	}
 };
