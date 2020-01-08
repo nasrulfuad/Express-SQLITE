@@ -4,7 +4,6 @@
       <th scope="col" class="text-center">No</th>
       <th scope="col">Name</th>
       <th scope="col">Email</th>
-      <th scope="col">Phone</th>
       <th scope="col">Actions</th>
     </tr>
   </thead>
@@ -13,18 +12,17 @@
       <tr>
         <th scope="row" class="text-center"><%= user.number %></th>
         <td>
-          <a href="/users/<%= user.id %>/show"><%= user.name %></a>
+          <a class="dropdown-item" href="#show" data-id="<%= user.id %>" data-toggle="tooltip" data-placement="bottom" title="Click to view detail"><%= user.name %></a>
         </td>
         <td><%= user.email %></td>
-        <td><%= user.phone_number %></td>
         <td>
           <div class="btn-group">
             <button class="btn btn-secondary btn-sm px-4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fas fa-ellipsis-v"></i>
             </button>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="/users/<%= user.id %>/show">Show</a>
-              <a class="dropdown-item" href="/users/<%= user.id %>/edit">Edit</a>
+              <a class="dropdown-item" href="#show" data-id="<%= user.id %>">Show</a>
+              <a class="dropdown-item" href="#show" data-id="<%= user.id %>">Edit</a>
               <a class="dropdown-item" href="/users/<%= user.id %>/delete">Delete</a>
             </div>
           </div>
@@ -62,4 +60,37 @@
         <a class="page-link" href="/?page=<%= users.next.page %>">&raquo;</a>
     <% } %>
   </ul>
+</div>
+<div class="modal fade" id="modal-show" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <table class="table table-sm">
+          <tbody>
+            <tr>
+              <th scope="row" class="pl-5">Name</th>
+              <td id="m-name"></td>
+            </tr>
+            <tr>
+              <th scope="row" class="pl-5">Email</th>
+              <td id="m-email"></td>
+            </tr>
+            <tr>
+              <th scope="row" class="pl-5">Phone</th>
+              <td id="m-phone"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

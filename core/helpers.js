@@ -30,11 +30,9 @@ module.exports = {
 			r.number = ++no;
 			return r;
 		});
-		console.log(rows);
 
 		const previous = startIndex > 0 ? { page: page - 1, limit } : undefined;
-		const next =
-			page * limit < count ? { page: page + 1, limit } : undefined;
+		const next = page * limit < count ? { page: page + 1, limit } : undefined;
 
 		return {
 			totalRows: count,
