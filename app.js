@@ -4,7 +4,7 @@ const session = require('express-session');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8002;
 
 app.use(expressLayouts);
 app.use(
@@ -28,7 +28,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/', require('./modules/home'));
+app.use('/groups', require('./modules/group'));
 
-app.listen(PORT, () =>
-	console.log(`Server is running on http://localhost:${PORT}`)
-);
+app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));

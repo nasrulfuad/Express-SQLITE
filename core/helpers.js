@@ -13,7 +13,7 @@ module.exports = {
 	responseApi: (s, c, m, data) => ({
 		status: s ? s : false,
 		code: c ? c : 200,
-		message: m ? m : 'Success',
+		message: m ? m : "Success",
 		data
 	}),
 
@@ -26,8 +26,7 @@ module.exports = {
 
 		let options = {
 			offset: startIndex,
-			order: [['createdAt', 'DESC']],
-			raw: true,
+			order: [["createdAt", "DESC"]],
 			limit
 		};
 

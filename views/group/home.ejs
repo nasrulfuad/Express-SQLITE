@@ -1,0 +1,177 @@
+<div class="row">
+  <div class="col">
+    <button class="btn btn-sm btn-success" type="button" id="btn-add-user">Add new user</button>
+  </div>
+</div>
+<form class="form-inline mt-5 mb-3">
+  <input class="form-control form-control-sm py-3 w-75" type="text" placeholder="Search">
+  <button class="btn btn-secondary btn-sm" type="button">Search</button>
+</form>
+<table class="table table-hover table-sm m-0">
+  <thead>
+    <tr>
+      <th scope="col" class="text-center">No</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if(groups.rows.length > 0) { %>
+      <% groups.rows.forEach((group, i) => { %>
+        <tr>
+          <th scope="row" class="text-center"><%= group.number %></th>
+          <td>
+            <a class="dropdown-item" href="#show" data-id="<%= group.id %>" data-toggle="tooltip" data-placement="bottom" title="Click to view detail">
+              <%= group.name %> <span class="badge badge-primary"><%= group.users.length || '0' %> member(s)</span>
+            </a>
+          </td>
+          <td><%= group.description %></td>
+          <td>
+            <div class="btn-group">
+              <button class="btn btn-secondary btn-sm px-4" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-ellipsis-v"></i>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="#show" data-id="<%= group.id %>">Show</a>
+                <a class="dropdown-item" href="#edit" data-id="<%= group.id %>">Edit</a>
+                <a class="dropdown-item" href="/users/<%= group.id %>/delete">Delete</a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% }) %>
+    <% }else{ %>
+      <tr>
+        <td colspan="5" class="text-center"><h3 class="m-0">Empty</h3></td>
+      </tr>
+    <% } %>
+  </tbody>
+</table>
+<div>
+  <ul class="pagination pagination-sm">
+    <% if(!groups.previous) { %>
+      <li class="page-item disabled">
+        <a class="page-link" href="#">&laquo;</a>
+    <% } else { %>
+      <li class="page-item">
+        <a class="page-link" href="/?page=<%= groups.previous.page %>">&laquo;</a>
+    <% } %>
+    </li>
+    <% if(groups.previous) { %>
+      <li class="page-item">
+        <a class="page-link" href="/?page=<%= groups.previous.page %>"><%= groups.previous.page %></a>
+    <% } %>
+    <li class="page-item active">
+      <a class="page-link" href="#"><%= groups.currentPage %></a>
+    </li>
+    <% if(groups.next) { %>
+      <li class="page-item">
+        <a class="page-link" href="/?page=<%= groups.next.page %>"><%= groups.next.page %></a>
+    <% } %>
+    <% if(!groups.next) { %>
+      <li class="page-item disabled">
+        <a class="page-link" href="#">&raquo;</a>
+    <% } else { %>
+      <li class="page-item">
+        <a class="page-link" href="/?page=<%= groups.next.page %>">&raquo;</a>
+    <% } %>
+  </ul>
+</div>
+<div class="modal fade" id="modal-show" tabindex="-1" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title">Members</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body p-0">
+        <ul class="list-group p-5" id="members">
+          <li class="list-group-item">Vestibulum at eros</li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-add-user" tabindex="-1" role="dialog" aria-labelledby="modal-title-add-user" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title-add-user">Create New User</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="form-add-user">
+        <div class="modal-body">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control form-control-sm py-3" id="name" name="name">
+      </div>
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control form-control-sm py-3" id="email" name="email">
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" class="form-control form-control-sm py-3" id="phone" name="phone_number">
+      </div>
+      <div class="form-group">
+        <label for="users">Group</label>
+        <select class="form-control" id="user" name="groups" multiple>
+          <% listGroups.forEach(group => { %>
+          <option value="<%= group.id %>"><%= group.name %></option>
+          <% }) %>
+        </select>
+      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="modal-edit" tabindex="-1" role="dialog" aria-labelledby="modal-title-edit" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modal-title-edit">Edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="form-edit" data-id="">
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="edit-name">Name</label>
+            <input type="text" class="form-control form-control-sm py-3" id="edit-name" name="name">
+          </div>
+          <div class="form-group">
+            <label for="desc">Description</label>
+            <textarea class="form-control" id="desc" rows="3" name="description"></textarea>
+          </div>
+          <div class="form-group">
+            <label for="users">Group</label>
+            <select class="form-control" id="members" name="users" multiple>
+              <% users.forEach(user => { %>
+                <option value="<%= user.id %>"><%= user.name %></option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary btn-sm">Save Changes</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="/js/group.js"></script>
